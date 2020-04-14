@@ -27,7 +27,6 @@ for i_file in range(from_id, to_id):
     # posterior_filename = 'post_{}'.format(file_name)
 
     n = D.shape[0]
-    n_classes = np.unique(D[:,-1])
     n_classifiers = 5
     knn = 5
     n_folds = 10
