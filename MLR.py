@@ -13,8 +13,6 @@ class MLR(object):
         self.X_test = args['X_test']
         self.nfolds = args['nfolds']
         self.classifiers = args['classifiers']
-        self.flagPosterior = args['flagPosterior']
-        self.posteriorFileName = args['posteriorFileName']
         self.TLoop = args['TLoop']
     
     def predict_probability(self):
@@ -31,33 +29,24 @@ class MLR(object):
         
         self.P = np.zeros((self.n0, self.n_classes * self.n_classifiers))
         
-        if self.flagPosterior == 0:
-            kf = KFold(n_splits= self.nfolds, shuffle=True)
-            self.kf_split = list(kf.split(self.X_train_full))
+        kf = KFold(n_splits= self.nfolds, shuffle=True)
+        self.kf_split = list(kf.split(self.X_train_full))
+        
+        for train_ids, test_ids in self.kf_split:
+            sample = self.features_X_train_full[test_ids, :]
+            # print(sample.shape)
+            training = self.features_X_train_full[train_ids, :]
+            # print(training.shape)
+            # print(self.labels_y_train_full[train_ids].shape)
+            group = self.labels_y_train_full[train_ids]
             
-            for train_ids, test_ids in self.kf_split:
-                sample = self.features_X_train_full[test_ids, :]
-                # print(sample.shape)
-                training = self.features_X_train_full[train_ids, :]
-                # print(training.shape)
-                # print(self.labels_y_train_full[train_ids].shape)
-                group = self.labels_y_train_full[train_ids]
-                
-                PTempt = Posterior.Posterior(training,group,sample,self.flag[0])
-                for i in range(1, self.n_classifiers):
-                    Pr = Posterior.Posterior(training,group,sample,self.flag[i])
-                    PTempt = np.concatenate((PTempt, Pr), axis = 1)
-                # print(PTempt.shape)
-                self.P[test_ids,:] = PTempt
-            # result_folder = "result\\{}".format(P)
-            # if not os.path.exists(result_folder):
-            #     os.mkdir(result_folder)   
-            
-            # write_file(P,result_folder,self.posteriorFileName+'_'+self.TLoop + '.dat')
+            PTempt = Posterior.Posterior(training,group,sample,self.flag[0])
+            for i in range(1, self.n_classifiers):
+                Pr = Posterior.Posterior(training,group,sample,self.flag[i])
+                PTempt = np.concatenate((PTempt, Pr), axis = 1)
+            # print(PTempt.shape)
+            self.P[test_ids,:] = PTempt
 
-        # else:
-        #     self.P = np.loadtxt("{}\{}.dat".format(result_folder, self.posteriorFileName+'_'+self.TLoop + '.dat'), delimiter=',')   
-    
     def weight_caculation(self):
         Y = np.zeros((self.n0, self.n_classes))
         for i0 in range(self.n0):
@@ -80,9 +69,9 @@ class MLR(object):
         species_test = self.X_test[:,-1]
         P_test = np.zeros((n_test, self.n_classes * self.n_classifiers))
 
-        P_temp = Posterior.PosteriorTest(train_model[0], self.features_X_train_full,meas_test,self.flag[0])
+        P_temp = Posterior.PosteriorTest(train_model[0], self.features_X_train_full)
         for i in range(1,self.n_classifiers):
-            Pr_test = Posterior.PosteriorTest(train_model[i], self.features_X_train_full,meas_test,self.flag[i])
+            Pr_test = Posterior.PosteriorTest(train_model[i], self.features_X_train_full)
             P_temp = np.concatenate((P_temp, Pr_test), axis = 1)
         P_test = P_temp
         

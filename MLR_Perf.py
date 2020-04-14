@@ -3,7 +3,7 @@ import numpy as np
 from util import write_file
 from MLR import MLR
 
-def MLR_Perf(D, n_folds, classifiers, niters, cv, flag_posterior, posterior_filename):
+def MLR_Perf(D, n_folds, classifiers, niters, cv):
     # def __init__(self, D, n_folds, classifiers, niters, cv, flag_posterior, posterior_filename):
     #     self.D = D
     #     self.n_folds = n_folds
@@ -34,7 +34,7 @@ def MLR_Perf(D, n_folds, classifiers, niters, cv, flag_posterior, posterior_file
         base_loop = i_iter * n_folds
         for i_fold in range(n_folds):
             current_loop = base_loop + i_fold
-
+            print(current_loop)
             test_indexs = cv[0, current_loop][:, 0] - 1   # Matlab from index 1, Python from index 0
             train_indexs = np.setdiff1d(all_indexs, test_indexs)
 
@@ -47,8 +47,6 @@ def MLR_Perf(D, n_folds, classifiers, niters, cv, flag_posterior, posterior_file
                 'X_test': X_test_original,
                 'nfolds':n_folds,
                 'classifiers':classifiers,
-                'flagPosterior':flag_posterior,   # % 0: Create new Posterior file in the first run   % 1: Re-use Posterior file
-                'posteriorFileName':posterior_filename,
                 'TLoop': ((i_iter-1)*n_folds + i_fold)
             }
 
