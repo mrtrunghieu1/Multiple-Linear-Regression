@@ -58,7 +58,7 @@ class MLR(object):
             X = self.P[:, m :(m + (self.n_classifiers - 1)*self.n_classes) + 1: self.n_classes]
             y = Y[:,m]
             W[:,m] = lsq_linear(X,y).x
-
+            print(lsq_linear(X,y))
         train_model = []
         for i in range(self.n_classifiers):
             model = Posterior.PosteriorModel(self.features_X_train_full, self.labels_y_train_full,self.flag[i])
@@ -74,16 +74,17 @@ class MLR(object):
             Pr_test = Posterior.PosteriorTest(train_model[i], self.features_X_train_full)
             P_temp = np.concatenate((P_temp, Pr_test), axis = 1)
         P_test = P_temp
-        
+        # print('P_test[0]:',P_test[0])
+        # print('W:', W)
         LR = np.zeros((n_test, self.n_classes))
         for itest in range(n_test):
             for m in range(self.n_classes):
                 tempt = 0;
                 for k in range(self.n_classifiers):
-                    tempt = tempt + W[k][m]*P_test[itest][m + (k-1)*self.n_classes]
+                    tempt = tempt + W[k][m]*P_test[itest][m + k*self.n_classes]
                 
                 LR[itest][m] = tempt
-        
+        # print('LR[0]:',LR[0])
         ytestMLR = np.zeros((n_test))
         for itest in range(n_test):
             id = np.argmax(LR[itest])
