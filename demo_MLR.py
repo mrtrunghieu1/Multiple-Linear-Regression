@@ -22,16 +22,12 @@ for i_file in range(from_id, to_id):
     D = np.loadtxt("{}\{}.dat".format(data_folder, file_name), delimiter=',')
     cv = sio.loadmat("{}\cv_{}.mat".format(cv_folder, file_name))['cv']
     #----------------------------- Initial parameters ---------------------------------
-    # flagPosterior = 0  # 0: Create new Posterior file in the first run
-    #                     # 1: Re-use Posterior file
-    # posterior_filename = 'post_{}'.format(file_name)
-
     n = D.shape[0]
     n_classifiers = 5
     knn = 5
     n_folds = 10
     n_iters = 3
-    binary_classifiers = [1, 1, 1, 0, 0, 0]
+    binary_classifiers = [1, 1, 1, 1, 1, 0]
     #--------------------------- MLR Perf -------------------------------------------
 
     P_macro, R_macro, F1_macro, P_weighted, R_weighted, F1_weighted, Accuracy = MLR_Perf(D,n_folds,

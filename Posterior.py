@@ -20,7 +20,7 @@ def PosteriorTest(mdl,sample):
 
 def PosteriorModel(training,label,flag):
     if flag == 0:
-        mdl = XGBClassifier(n_estimators=10)
+        mdl = XGBClassifier(n_estimators=200)
         mdl.fit(training, label)
     elif flag == 1:
         mdl = GaussianNB()
@@ -32,7 +32,7 @@ def PosteriorModel(training,label,flag):
         lr = LogisticRegression(random_state=0)
         mdl = lr.fit(training,label)
     elif flag == 4:
-        rf = RandomForestClassifier(n_estimators=10)
+        rf = RandomForestClassifier(n_estimators=200)
         mdl = rf.fit(training,label)
     elif flag == 5:
         neigh = KNeighborsClassifier(n_neighbors=20)

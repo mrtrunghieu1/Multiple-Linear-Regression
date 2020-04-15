@@ -58,7 +58,7 @@ class MLR(object):
             X = self.P[:, m :(m + (self.n_classifiers - 1)*self.n_classes) + 1: self.n_classes]
             y = Y[:,m]
             W[:,m] = lsq_linear(X,y).x
-            print(lsq_linear(X,y))
+            # print(lsq_linear(X,y))
         train_model = []
         for i in range(self.n_classifiers):
             model = Posterior.PosteriorModel(self.features_X_train_full, self.labels_y_train_full,self.flag[i])
