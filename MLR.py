@@ -22,7 +22,6 @@ class MLR(object):
         self.labels_y_train_full = self.X_train_full[:,-1].astype(np.int32)   # Label train
         # print(self.labels_y_train_full)
         self.classes = np.unique(self.labels_y_train_full)
-        
         self.n_classes = len(self.classes)
         self.flag = [i for i, clsf in enumerate(self.classifiers) if clsf == 1]
         self.n_classifiers = len(self.flag)
@@ -90,7 +89,6 @@ class MLR(object):
             id = np.argmax(LR[itest])
             ytestMLR[itest] = self.classes[id]
 
-        # print(classification_report(species_test,ytestMLR,self.classes))
         p_macro, r_macro, f1_macro, _  = precision_recall_fscore_support(species_test, ytestMLR, average='macro')
         p_weighted, r_weighted, f1_weighted, _  = precision_recall_fscore_support(species_test, ytestMLR, average='weighted')
         accuracy = accuracy_score(species_test, ytestMLR)

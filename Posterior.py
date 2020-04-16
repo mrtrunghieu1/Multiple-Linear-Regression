@@ -29,7 +29,7 @@ def PosteriorModel(training,label,flag):
         neigh = KNeighborsClassifier(n_neighbors=5)
         mdl = neigh.fit(training,label)
     elif flag == 3:
-        lr = LogisticRegression(random_state=0)
+        lr = LogisticRegression()
         mdl = lr.fit(training,label)
     elif flag == 4:
         rf = RandomForestClassifier(n_estimators=200)

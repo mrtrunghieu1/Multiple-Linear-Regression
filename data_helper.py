@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-file_list = ['australian', 'balance', 'bupa']
+file_list = ['australian', 'balance', 'bupa', 'glass']
 
 data_folder = "C:\\Users\\Administrator\\Desktop\\Code_Test\\Multiple-Linear-Regression\\data\\data"
 cv_folder = "C:\\Users\\Administrator\\Desktop\\Code_Test\\Multiple-Linear-Regression\\data\\cv"

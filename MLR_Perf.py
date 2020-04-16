@@ -4,17 +4,6 @@ from util import write_file
 from MLR import MLR
 
 def MLR_Perf(D, n_folds, classifiers, niters, cv):
-    # def __init__(self, D, n_folds, classifiers, niters, cv, flag_posterior, posterior_filename):
-    #     self.D = D
-    #     self.n_folds = n_folds
-    #     self.classifiers = classifiers
-    #     self.niters = niters
-    #     # self.flag_cv = flag_cv
-    #     self.cv = cv
-    #     self.flag_posterior = flag_posterior
-    #     self.posterior_filename = posterior_filename
-
-    # def mlr(self):
     species = D[:,-1]
     n0 = len(species)
     all_indexs = np.array(range(D.shape[0]))
@@ -50,9 +39,9 @@ def MLR_Perf(D, n_folds, classifiers, niters, cv):
                 'TLoop': ((i_iter-1)*n_folds + i_fold)
             }
 
-            mlr_args = MLR(mlr_args)
-            mlr_args.predict_probability()
-            p_macro, r_macro, f1_macro, p_weighted, r_weighted, f1_weighted, accuracy = mlr_args.weight_caculation()
+            mlr_object = MLR(mlr_args)
+            mlr_object.predict_probability()
+            p_macro, r_macro, f1_macro, p_weighted, r_weighted, f1_weighted, accuracy = mlr_object.weight_caculation()
 
             P_macro[current_loop] = p_macro
             R_macro[current_loop] = r_macro
