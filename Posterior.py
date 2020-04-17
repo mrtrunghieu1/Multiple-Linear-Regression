@@ -21,7 +21,7 @@ def PosteriorModel(training,label,flag):
     if flag == 0:
         mdl = XGBClassifier(n_estimators=200)
         mdl.fit(training, label)
-    if flag == 1:
+    elif flag == 1:
         mdl = GaussianNB()
         mdl.fit(training,label)
     elif flag == 2:

@@ -4,7 +4,7 @@ import scipy.io as sio
 import numpy as np
 import os
 
-from util import write_file
+from util import write_file_cv
 from data_helper import file_list, data_folder, cv_folder
 from MLR_Perf import MLR_Perf
 
@@ -38,15 +38,15 @@ for i_file in range(from_id, to_id):
         os.makedirs(result_folder)
     # =====================Write file ====================================
     
-    write_file(Accuracy, result_folder,'accuracy')
+    write_file_cv(Accuracy, result_folder,'accuracy')
 
-    write_file(P_macro, result_folder,'precision_macro')
-    write_file(R_macro, result_folder,'recall_macro')
-    write_file(F1_macro, result_folder,'f1_macro')
+    write_file_cv(P_macro, result_folder,'precision_macro')
+    write_file_cv(R_macro, result_folder,'recall_macro')
+    write_file_cv(F1_macro, result_folder,'f1_macro')
 
-    write_file(P_weighted, result_folder,'precision_weighted')
-    write_file(R_weighted, result_folder,'recall_weighted')
-    write_file(F1_weighted, result_folder,'f1_weighted')
+    write_file_cv(P_weighted, result_folder,'precision_weighted')
+    write_file_cv(R_weighted, result_folder,'recall_weighted')
+    write_file_cv(F1_weighted, result_folder,'f1_weighted')
 
 
 

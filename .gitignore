@@ -1,8 +1,14 @@
-data/
+data_cv/
 review code/
-
+data/
 # Jupyter Notebook
 .ipynb_checkpoints
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
+
+#De bug vscode
+.vscode/
+
+#Jupyter notebook folder
+jupyter_notebook/

@@ -1,5 +1,7 @@
 import numpy as np
-def write_file(array, folder, filename):
+import json
+
+def write_file_cv(array, folder, filename):
     array_mean = np.mean(array)
     array_var = np.var(array)
     np.savetxt(folder + "/" + filename, array, delimiter=',', fmt='%0.6e')
@@ -10,3 +12,7 @@ def write_file(array, folder, filename):
     f.write("Variance:\n")
     f.write("{0:6E}".format(array_var))
     f.close()
+
+def write_file(result,folder, filename):
+    with open(folder + "/" + filename, 'w') as outfile:
+        json.dump(result, outfile)

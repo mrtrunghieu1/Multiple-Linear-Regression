@@ -88,7 +88,7 @@ class MLR(object):
 
         p_macro, r_macro, f1_macro, _ = precision_recall_fscore_support(
             species_test, ytestMLR, average='macro')
-        p_weighted, r_weighted, f1_weighted, _ = precision_recall_fscore_support(
-            species_test, ytestMLR, average='weighted')
+        p_micro, r_micro, f1_micro, _ = precision_recall_fscore_support(
+            species_test, ytestMLR, average='micro')
         accuracy = accuracy_score(species_test, ytestMLR)
-        return p_macro, r_macro, f1_macro, p_weighted, r_weighted, f1_weighted, accuracy
+        return p_macro, r_macro, f1_macro, p_micro, r_micro, f1_micro, accuracy
