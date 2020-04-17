@@ -7,9 +7,8 @@ from xgboost import XGBClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import precision_recall_fscore_support
 from sklearn.tree import DecisionTreeClassifier
-from xgboost import XGBClassifier
 
-def Posterior(training,label,sample,flag):
+def Posterior(training,label,sample,flag): 
     mdl = PosteriorModel(training,label,flag)
     P = PosteriorTest(mdl,sample)
     return P
@@ -22,7 +21,7 @@ def PosteriorModel(training,label,flag):
     if flag == 0:
         mdl = XGBClassifier(n_estimators=200)
         mdl.fit(training, label)
-    elif flag == 1:
+    if flag == 1:
         mdl = GaussianNB()
         mdl.fit(training,label)
     elif flag == 2:
